@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>说说对高阶组件的理解？应用场景? | duangdong的react</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="react相关知识归纳总结">
+    <meta name="keywords" content="react,react进阶,react性能优化,react-hooks,react源码">
+    
+    <link rel="preload" href="/assets/css/0.styles.a427ee9b.css" as="style"><link rel="preload" href="/assets/js/app.c06c5691.js" as="script"><link rel="preload" href="/assets/js/2.e21ead49.js" as="script"><link rel="preload" href="/assets/js/15.cda0a8ba.js" as="script"><link rel="prefetch" href="/assets/js/10.b9a4c71a.js"><link rel="prefetch" href="/assets/js/11.f55d2255.js"><link rel="prefetch" href="/assets/js/12.fe15bcdc.js"><link rel="prefetch" href="/assets/js/13.87a3c5ce.js"><link rel="prefetch" href="/assets/js/14.ebf89fa4.js"><link rel="prefetch" href="/assets/js/16.f9dc23dc.js"><link rel="prefetch" href="/assets/js/17.84340ca0.js"><link rel="prefetch" href="/assets/js/18.bd273a95.js"><link rel="prefetch" href="/assets/js/19.81155919.js"><link rel="prefetch" href="/assets/js/20.9fd76e46.js"><link rel="prefetch" href="/assets/js/21.ace06104.js"><link rel="prefetch" href="/assets/js/22.90ade980.js"><link rel="prefetch" href="/assets/js/23.0666abd7.js"><link rel="prefetch" href="/assets/js/24.a72c373a.js"><link rel="prefetch" href="/assets/js/25.b969cb94.js"><link rel="prefetch" href="/assets/js/26.de056b27.js"><link rel="prefetch" href="/assets/js/27.c42084cb.js"><link rel="prefetch" href="/assets/js/28.4837174d.js"><link rel="prefetch" href="/assets/js/29.ff25f8d5.js"><link rel="prefetch" href="/assets/js/3.860eacbd.js"><link rel="prefetch" href="/assets/js/30.713760c5.js"><link rel="prefetch" href="/assets/js/31.7c617c61.js"><link rel="prefetch" href="/assets/js/32.d175bcfe.js"><link rel="prefetch" href="/assets/js/33.74590403.js"><link rel="prefetch" href="/assets/js/34.83533364.js"><link rel="prefetch" href="/assets/js/35.074e3e13.js"><link rel="prefetch" href="/assets/js/36.1ccfc83b.js"><link rel="prefetch" href="/assets/js/37.a396d472.js"><link rel="prefetch" href="/assets/js/38.db4bd748.js"><link rel="prefetch" href="/assets/js/39.df82dded.js"><link rel="prefetch" href="/assets/js/4.8f6f0475.js"><link rel="prefetch" href="/assets/js/40.c748e8b5.js"><link rel="prefetch" href="/assets/js/5.8b87f02a.js"><link rel="prefetch" href="/assets/js/6.2f86309f.js"><link rel="prefetch" href="/assets/js/7.f1cc41de.js"><link rel="prefetch" href="/assets/js/8.9c653580.js"><link rel="prefetch" href="/assets/js/9.af331656.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a427ee9b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的react</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/fiber/" class="nav-link">
+  Fiber
+</a></div><div class="nav-item"><a href="/advanced/" class="nav-link router-link-active">
+  进阶
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/fiber/" class="nav-link">
+  Fiber
+</a></div><div class="nav-item"><a href="/advanced/" class="nav-link router-link-active">
+  进阶
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/advanced/" aria-current="page" class="sidebar-link">进阶</a></li><li><a href="/advanced/Render如何强制它.html" class="sidebar-link">什么是 React 中的 Render 以及如何强制它？</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>hoc</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/advanced/hoc/一文吃透React高阶组件HOC.html" class="sidebar-link">一文吃透React高阶组件HOC</a></li><li><a href="/advanced/hoc/从mixin到hoc再到hook-1.html" class="sidebar-link">从mixin到hoc再到hook-1</a></li><li><a href="/advanced/hoc/从mixin到hoc再到hook-2.html" class="sidebar-link">从 mixin 到 hoc 再到 hook-2</a></li><li><a href="/advanced/hoc/从mixin到hoc再到hook-3.html" class="sidebar-link">从 mixin 到 hoc 再到 hook-3</a></li><li><a href="/advanced/hoc/从mixin到hoc再到hook-4.html" class="sidebar-link">从 mixin 到 hoc 再到 hook-4</a></li><li><a href="/advanced/hoc/说说对高阶组件的理解.html" class="active sidebar-link">说说对高阶组件的理解？应用场景?</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>keys</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/advanced/react-svelte入门.html" class="sidebar-link">写给 React 开发者看的 Svelte入门</a></li><li><a href="/advanced/react16常见api以及原理剖析.html" class="sidebar-link">react16常见api以及原理剖析</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>setstate</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/advanced/五分钟带你掌握优先队列.html" class="sidebar-link">五分钟带你掌握优先队列</a></li><li><a href="/advanced/前端架构之React领域驱动设计.html" class="sidebar-link">前端架构之 React 领域驱动设计</a></li><li><a href="/advanced/学好这些React设计模式.html" class="sidebar-link">学好这些React设计模式-能让你的 React 项目飞起来</a></li><li><a href="/advanced/浅谈React中的XSS攻击.html" class="sidebar-link">浅谈 React 中的 XSS 攻击</a></li><li><a href="/advanced/错误边界.html" class="sidebar-link">错误边界（Error Boundaries）</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="说说对高阶组件的理解-应用场景"><a href="#说说对高阶组件的理解-应用场景" class="header-anchor">#</a> 说说对高阶组件的理解？应用场景?</h1> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/gH31uF9VIibQm5E79RJ7QSB1z3mgs3SaUF2uia7ibR6StjNNJBAcRsahIHrrgcWwhYeTXsCedG3vSClfBwRjYY9XA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h2 id="一、是什么"><a href="#一、是什么" class="header-anchor">#</a> 一、是什么</h2> <blockquote><p><strong>高阶组件是参数为组件，返回值为新组件的函数</strong></p></blockquote> <p>高阶函数（Higher-order function），至少满足下列一个条件的函数</p> <ul><li>接受一个或多个函数作为输入</li> <li>输出一个函数</li></ul> <p>在<code>React</code>中，高阶组件即接受一个或多个组件作为参数并且返回一个组件，本质也就是一个函数，并不是一个组件</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">const</span> EnhancedComponent <span class="token operator">=</span> <span class="token function">highOrderComponent</span><span class="token punctuation">(</span>WrappedComponent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>上述代码中，该函数接受一个组件<code>WrappedComponent</code>作为参数，返回加工过的新组件<code>EnhancedComponent</code></p> <p>高阶组件的这种实现方式，本质上是一个装饰者设计模式</p> <h2 id="二、如何编写"><a href="#二、如何编写" class="header-anchor">#</a> 二、如何编写</h2> <p>最基本的高阶组件的编写模板如下：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token parameter">WrappedComponent</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">class</span> <span class="token class-name">EnhancedComponent</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">WrappedComponent</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>通过对传入的原始组件 <code>WrappedComponent</code> 做一些你想要的操作（比如操作 props，提取 state，给原始组件包裹其他元素等），从而加工出想要的组件 <code>EnhancedComponent</code></p> <p>把通用的逻辑放在高阶组件中，对组件实现一致的处理，从而实现代码的复用</p> <p>所以，高阶组件的主要功能是封装并分离组件的通用逻辑，让通用逻辑在组件间更好地被复用</p> <p>但在使用高阶组件的同时，一般遵循一些约定，如下：</p> <ul><li>props 保持一致</li> <li>你不能在函数式（无状态）组件上使用 ref 属性，因为它没有实例</li> <li>不要以任何方式改变原始组件 WrappedComponent</li> <li>透传不相关 props 属性给被包裹的组件 WrappedComponent</li> <li>不要再 render() 方法中使用高阶组件</li> <li>使用  compose 组合高阶组件</li> <li>包装显示名字以便于调试</li></ul> <p>这里需要注意的是，高阶组件可以传递所有的<code>props</code>，但是不能传递<code>ref</code></p> <p>如果向一个高阶组件添加<code>refe</code>引用，那么<code>ref</code> 指向的是最外层容器组件实例的，而不是被包裹的组件，如果需要传递<code>refs</code>的话，则使用<code>React.forwardRef</code>，如下：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">function</span> <span class="token function">withLogging</span><span class="token punctuation">(</span><span class="token parameter">WrappedComponent</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">class</span> <span class="token class-name">Enhance</span> <span class="token keyword">extends</span> <span class="token class-name">WrappedComponent</span> <span class="token punctuation">{</span>
+        <span class="token function">componentWillReceiveProps</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Current props'</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Next props'</span><span class="token punctuation">,</span> nextProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token punctuation">{</span>forwardedRef<span class="token punctuation">,</span> <span class="token operator">...</span>rest<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">;</span>
+            <span class="token comment">// 把 forwardedRef 赋值给 ref</span>
+            <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">WrappedComponent</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token operator">...</span>rest<span class="token punctuation">}</span></span> <span class="token attr-name">ref</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>forwardedRef<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// React.forwardRef 方法会传入 props 和 ref 两个参数给其回调函数</span>
+    <span class="token comment">// 所以这边的 ref 是由 React.forwardRef 提供的</span>
+    <span class="token keyword">function</span> <span class="token function">forwardRef</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> ref</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Enhance</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token operator">...</span>props<span class="token punctuation">}</span></span> <span class="token attr-name">forwardRef</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>ref<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> React<span class="token punctuation">.</span><span class="token function">forwardRef</span><span class="token punctuation">(</span>forwardRef<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> EnhancedComponent <span class="token operator">=</span> <span class="token function">withLogging</span><span class="token punctuation">(</span>SomeComponent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="三、应用场景"><a href="#三、应用场景" class="header-anchor">#</a> 三、应用场景</h2> <p>通过上面的了解，高阶组件能够提高代码的复用性和灵活性，在实际应用中，常常用于与核心业务无关但又在多个模块使用的功能，如权限控制、日志记录、数据校验、异常处理、统计上报等</p> <p>举个例子，存在一个组件，需要从缓存中获取数据，然后渲染。一般情况，我们会如下编写：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyComponent</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+
+  <span class="token function">componentWillMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> data <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>data<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>data<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>上述代码当然可以实现该功能，但是如果还有其他组件也有类似功能的时候，每个组件都需要重复写<code>componentWillMount</code>中的代码，这明显是冗杂的</p> <p>下面就可以通过高价组件来进行改写，如下：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">import</span> React<span class="token punctuation">,</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react'</span>
+
+<span class="token keyword">function</span> <span class="token function">withPersistentData</span><span class="token punctuation">(</span><span class="token parameter">WrappedComponent</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> Component <span class="token punctuation">{</span>
+    <span class="token function">componentWillMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> data <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">{</span>data<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 通过{...this.props} 把传递给当前组件的属性继续传递给被包装的组件WrappedComponent</span>
+      <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">WrappedComponent</span></span> <span class="token attr-name">data</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>data<span class="token punctuation">}</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyComponent2</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>  
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>data<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> MyComponentWithPersistentData <span class="token operator">=</span> <span class="token function">withPersistentData</span><span class="token punctuation">(</span>MyComponent2<span class="token punctuation">)</span>
+</code></pre></div><p>再比如组件渲染性能监控，如下：</p> <div class="language-jsx extra-class"><pre class="language-jsx"><code><span class="token keyword">class</span> <span class="token class-name">Home</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token plain-text">Hello World.</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">withTiming</span><span class="token punctuation">(</span><span class="token parameter">WrappedComponent</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">class</span> <span class="token class-name">extends</span> WrappedComponent <span class="token punctuation">{</span>
+        <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">componentWillMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span>componentWillMount <span class="token operator">&amp;&amp;</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">componentWillMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>start <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">.</span>componentDidMount <span class="token operator">&amp;&amp;</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>end <span class="token operator">=</span> Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>WrappedComponent<span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> 组件渲染时间为 </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>end <span class="token operator">-</span> <span class="token keyword">this</span><span class="token punctuation">.</span>start<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> ms</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">withTiming</span><span class="token punctuation">(</span>Home<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="参考文献"><a href="#参考文献" class="header-anchor">#</a> 参考文献</h2> <ul><li>https://zh-hans.reactjs.org/docs/higher-order-components.html#gatsby-focus-wrapper</li> <li>https://zh.wikipedia.org/wiki/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0</li> <li>https://segmentfault.com/a/1190000010307650</li> <li>https://zhuanlan.zhihu.com/p/61711492</li></ul></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/24/2022, 11:56:22 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/advanced/hoc/从mixin到hoc再到hook-4.html" class="prev">
+        从 mixin 到 hoc 再到 hook-4
+      </a></span> <span class="next"><a href="/advanced/keys/React中的key有什么作用.html">
+        React中的key有什么作用？
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.c06c5691.js" defer></script><script src="/assets/js/2.e21ead49.js" defer></script><script src="/assets/js/15.cda0a8ba.js" defer></script>
+  </body>
+</html>

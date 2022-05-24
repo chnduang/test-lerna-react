@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>为什么虚拟 dom 会提高性能? | duangdong的react</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="react相关知识归纳总结">
+    <meta name="keywords" content="react,react进阶,react性能优化,react-hooks,react源码">
+    
+    <link rel="preload" href="/assets/css/0.styles.a427ee9b.css" as="style"><link rel="preload" href="/assets/js/app.c06c5691.js" as="script"><link rel="preload" href="/assets/js/2.e21ead49.js" as="script"><link rel="preload" href="/assets/js/33.74590403.js" as="script"><link rel="prefetch" href="/assets/js/10.b9a4c71a.js"><link rel="prefetch" href="/assets/js/11.f55d2255.js"><link rel="prefetch" href="/assets/js/12.fe15bcdc.js"><link rel="prefetch" href="/assets/js/13.87a3c5ce.js"><link rel="prefetch" href="/assets/js/14.ebf89fa4.js"><link rel="prefetch" href="/assets/js/15.cda0a8ba.js"><link rel="prefetch" href="/assets/js/16.f9dc23dc.js"><link rel="prefetch" href="/assets/js/17.84340ca0.js"><link rel="prefetch" href="/assets/js/18.bd273a95.js"><link rel="prefetch" href="/assets/js/19.81155919.js"><link rel="prefetch" href="/assets/js/20.9fd76e46.js"><link rel="prefetch" href="/assets/js/21.ace06104.js"><link rel="prefetch" href="/assets/js/22.90ade980.js"><link rel="prefetch" href="/assets/js/23.0666abd7.js"><link rel="prefetch" href="/assets/js/24.a72c373a.js"><link rel="prefetch" href="/assets/js/25.b969cb94.js"><link rel="prefetch" href="/assets/js/26.de056b27.js"><link rel="prefetch" href="/assets/js/27.c42084cb.js"><link rel="prefetch" href="/assets/js/28.4837174d.js"><link rel="prefetch" href="/assets/js/29.ff25f8d5.js"><link rel="prefetch" href="/assets/js/3.860eacbd.js"><link rel="prefetch" href="/assets/js/30.713760c5.js"><link rel="prefetch" href="/assets/js/31.7c617c61.js"><link rel="prefetch" href="/assets/js/32.d175bcfe.js"><link rel="prefetch" href="/assets/js/34.83533364.js"><link rel="prefetch" href="/assets/js/35.074e3e13.js"><link rel="prefetch" href="/assets/js/36.1ccfc83b.js"><link rel="prefetch" href="/assets/js/37.a396d472.js"><link rel="prefetch" href="/assets/js/38.db4bd748.js"><link rel="prefetch" href="/assets/js/39.df82dded.js"><link rel="prefetch" href="/assets/js/4.8f6f0475.js"><link rel="prefetch" href="/assets/js/40.c748e8b5.js"><link rel="prefetch" href="/assets/js/5.8b87f02a.js"><link rel="prefetch" href="/assets/js/6.2f86309f.js"><link rel="prefetch" href="/assets/js/7.f1cc41de.js"><link rel="prefetch" href="/assets/js/8.9c653580.js"><link rel="prefetch" href="/assets/js/9.af331656.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a427ee9b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的react</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/fiber/" class="nav-link router-link-active">
+  Fiber
+</a></div><div class="nav-item"><a href="/advanced/" class="nav-link">
+  进阶
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/fiber/" class="nav-link router-link-active">
+  Fiber
+</a></div><div class="nav-item"><a href="/advanced/" class="nav-link">
+  进阶
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/fiber/" aria-current="page" class="sidebar-link">Fiber</a></li><li><a href="/fiber/React-Fiber架构浅析.html" class="sidebar-link">React-Fiber架构浅析</a></li><li><a href="/fiber/ReactFiber是如何实现更新过程可控的.html" class="sidebar-link">React Fiber 是如何实现更新过程可控的</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>diff</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>dom</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/fiber/dom/React是如何创建-vdom和fiber-tree.html" class="sidebar-link">React 是如何创建 vdom和fibertree</a></li><li><a href="/fiber/dom/RealDOM和VirtualDOM的区别.html" class="sidebar-link">说说 RealDOM和VirtualDOM的区别？优缺点？</a></li><li><a href="/fiber/dom/为什么虚拟dom提升性能.html" class="active sidebar-link">为什么虚拟 dom 会提高性能?</a></li><li><a href="/fiber/dom/深入分析虚拟dom的渲染原理和特性.html" class="sidebar-link">深入分析虚拟 dom 的渲染原理和特性</a></li><li><a href="/fiber/dom/说说ReactJsx转换成真实DOM过程.html" class="sidebar-link">说说React Jsx转换成真实DOM过程？</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>keys</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/fiber/从中断机制看ReactFiber技术.html" class="sidebar-link">从中断机制看 React Fiber 技术</a></li><li><a href="/fiber/六个问题让你更懂ReactFiber.html" class="sidebar-link">六个问题让你更懂 React Fiber</a></li><li><a href="/fiber/理解其原理fiber.html" class="sidebar-link">手写React的Fiber架构，深入理解其原理</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="为什么虚拟-dom-会提高性能"><a href="#为什么虚拟-dom-会提高性能" class="header-anchor">#</a> 为什么虚拟 dom 会提高性能?</h1> <h3 id="虚拟dom-virtual-dom-其实就是一个javascript对象-通过这个javascript对象来描述真实dom。"><a href="#虚拟dom-virtual-dom-其实就是一个javascript对象-通过这个javascript对象来描述真实dom。" class="header-anchor">#</a> 虚拟dom(virtual dom) 其实就是一个JavaScript对象，通过这个JavaScript对象来描述真实dom。</h3> <p>真实dom：以前没有虚拟dom，如果需要比较两个页面的差异，我们需要通过对真实dom进行比对。真实dom节点是非常复杂的，它里面会绑定的事件，它会有属性，背后会有各种方法，会频繁触发重排与重绘，所以两个真实dom比对，非常耗性能。</p> <p>总损耗 = 真实DOM完全增删改 + （可能较多的节点）重排与重绘</p> <h3 id="虚拟dom-相当于在js和真实dom中间加了一个缓存-利用dom-diff算法避免了没有必要的dom操作-从而提髙性能。"><a href="#虚拟dom-相当于在js和真实dom中间加了一个缓存-利用dom-diff算法避免了没有必要的dom操作-从而提髙性能。" class="header-anchor">#</a> 虚拟dom：相当于在js和真实dom中间加了一个缓存，利用dom diff算法避免了没有必要的dom操作，从而提髙性能。</h3> <p>总损耗 = 虚拟DOM增删改 + （与Diff算法效率有关）真实DOM差异增删改 + （较少的节点）重排与重绘</p> <h3 id="具体实现步骤如下"><a href="#具体实现步骤如下" class="header-anchor">#</a> 具体实现步骤如下：</h3> <ol><li><p>用JavaScript对象结构表示DOM树的结构；然后用这个树构建一个真正的DOM树，插到文档当中;</p></li> <li><p>当状态变更的时候，重新构造一棵新的对象树。然后用新的树和旧的树进行比较，记录两棵树差异;</p></li> <li><p>把步骤2所记录的差异应用到步骤1所构建的真正的DOM树上，视图就更新了。</p></li></ol></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/24/2022, 11:56:22 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/fiber/dom/RealDOM和VirtualDOM的区别.html" class="prev">
+        说说 RealDOM和VirtualDOM的区别？优缺点？
+      </a></span> <span class="next"><a href="/fiber/dom/深入分析虚拟dom的渲染原理和特性.html">
+        深入分析虚拟 dom 的渲染原理和特性
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.c06c5691.js" defer></script><script src="/assets/js/2.e21ead49.js" defer></script><script src="/assets/js/33.74590403.js" defer></script>
+  </body>
+</html>
